@@ -4,41 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#efefef"
+    android:background="#eee"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <FrameLayout
+    <TextView
         android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="32sp"
         android:layout_height="0dp"
         android:background="#fff"
         android:layout_weight="1"
         android:onClick="openMultiplicationActivity"
-        android:layout_margin="16dp">
+        android:layout_margin="16dp"
+        android:text="Multiplication Table"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:textSize="32sp"
-            android:text="Multiplication Table"/>
-    </FrameLayout>
 
-    <FrameLayout
+    <TextView
         android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="32sp"
         android:layout_height="0dp"
         android:background="#fff"
         android:onClick="openConverterActivity"
         android:layout_weight="1"
-        android:layout_margin="16dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:textSize="32sp"
-            android:text="Weight Converter"/>
-    </FrameLayout>
+        android:layout_margin="16dp"
+        android:text="Weight Converter"/>
 </LinearLayout>

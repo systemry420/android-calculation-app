@@ -9,8 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CalculationApp">
-        <activity android:name=".WeightConverter"></activity>
-        <activity android:name=".Multiplication" />
+        <activity android:name=".WeightConverter"
+            android:label="Weight Converter"></activity>
+        <activity android:name=".Multiplication"
+            android:label="Multiplication Table"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
