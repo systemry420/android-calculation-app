@@ -13,6 +13,7 @@
         android:layout_height="0dp"
         android:background="#fff"
         android:layout_weight="1"
+        android:onClick="openMultiplicationActivity"
         android:layout_margin="16dp">
 
         <TextView
@@ -28,6 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="#fff"
+        android:onClick="openConverterActivity"
         android:layout_weight="1"
         android:layout_margin="16dp">
 
