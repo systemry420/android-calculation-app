@@ -52,7 +52,6 @@ public class Multiplication extends AppCompatActivity {
     }
 
     public void getExercise() {
-        score++;
         Random r = new Random();
         int random1 = r.nextInt(10);
         int random2 = r.nextInt(10);
@@ -66,7 +65,6 @@ public class Multiplication extends AppCompatActivity {
 
     public void startTimer() {
         new CountDownTimer(30000, 1000) {
-
             public void onTick(long millisUntilFinished) {
                 tvTimer.setText(String.valueOf(millisUntilFinished / 1000));
             }
@@ -109,6 +107,7 @@ public class Multiplication extends AppCompatActivity {
                     if(answer == product) {
                         etAnswer.setBackgroundColor(Color.rgb(100, 200, 100));
                         next.setEnabled(true);
+                        score++;
                     } else {
                         etAnswer.setBackgroundColor(Color.rgb(200, 100, 100));
                         next.setEnabled(false);

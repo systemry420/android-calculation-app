@@ -37,24 +37,19 @@ public class WeightConverter extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(!etInput.getText().toString().equals("")) {
                     int input = Integer.parseInt(etInput.getText().toString());
-                    if(input < 0)
-                        return;
-                    else {
-                        tvGram.setText(String.valueOf(input / 0.0022046));
-                        tvKilogram.setText(String.valueOf(input / 2.2046));
-                        tvOunce.setText(String.valueOf(input * 16));
+                    tvGram.setText(String.valueOf(input / 0.0022046));
+                    tvKilogram.setText(String.valueOf(input / 2.2046));
+                    tvOunce.setText(String.valueOf(input * 16));
 
-//                    tvGram.setVisibility(View.VISIBLE);
-//                    tvKilogram.setVisibility(View.VISIBLE);
-//                    tvOunce.setVisibility(View.VISIBLE);
+                    card1.setVisibility(View.VISIBLE);
+                    card2.setVisibility(View.VISIBLE);
+                    card3.setVisibility(View.VISIBLE);
 
-                        card1.setVisibility(View.VISIBLE);
-                        card2.setVisibility(View.VISIBLE);
-                        card3.setVisibility(View.VISIBLE);
-
-                        etInput.clearFocus();
-                    }
+                    etInput.clearFocus();
                 } else {
+                    card1.setVisibility(View.INVISIBLE);
+                    card2.setVisibility(View.INVISIBLE);
+                    card3.setVisibility(View.INVISIBLE);
                     tvGram.setText("");
                     tvKilogram.setText("");
                     tvOunce.setText("");
