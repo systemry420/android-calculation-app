@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,39 +32,48 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getTitle().toString()) {
             case "Calculator":
-                Intent intent = new Intent();
-                intent.setClass(this, Calculator.class);
-                startActivity(intent);
+                openCalculatorActivity();
                 break;
             case "Multiplication Table":
-                intent = new Intent();
-                intent.setClass(this, Multiplication.class);
-                startActivity(intent);
+                openMultiplicationActivity();
                 break;
             case "Weight Converter":
-                intent = new Intent();
-                intent.setClass(this, WeightConverter.class);
-                startActivity(intent);
+                openConverterActivity();
                 break;
         }
 
-        return true;
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void openActivity(View view) {
+        TextView tv = (TextView) view;
+        switch (tv.getText().toString()) {
+            case "Calculator":
+                openCalculatorActivity();
+                break;
+            case "Multiplication Table":
+                openMultiplicationActivity();
+                break;
+            case "Weight Converter":
+                openConverterActivity();
+                break;
+        }
     }
 
 
-    public void openCalculatorActivity(View view) {
+    public void openCalculatorActivity() {
         Intent intent = new Intent();
         intent.setClass(this, Calculator.class);
         startActivity(intent);
     }
 
-    public void openMultiplicationActivity(View view) {
+    public void openMultiplicationActivity() {
         Intent intent = new Intent();
         intent.setClass(this, Multiplication.class);
         startActivity(intent);
     }
 
-    public void openConverterActivity(View view) {
+    public void openConverterActivity() {
         Intent intent = new Intent();
         intent.setClass(this, WeightConverter.class);
         startActivity(intent);

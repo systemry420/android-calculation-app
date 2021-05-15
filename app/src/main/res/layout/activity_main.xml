@@ -8,39 +8,45 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_margin="16dp"
+        android:layout_weight="1"
+        android:backgroundTint="#fff"
+        android:foreground="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:onClick="openActivity"
+        android:text="Calculator"
+        android:textColor="#555"
+        android:textSize="32sp" />
+
+    <Button
         android:layout_width="match_parent"
         android:layout_gravity="center"
         android:gravity="center"
         android:textSize="32sp"
         android:layout_height="0dp"
-        android:background="#fff"
+        android:backgroundTint="#fff"
+        android:foreground="?attr/selectableItemBackground"
+        android:textColor="#555"
         android:layout_weight="1"
-        android:onClick="openMultiplicationActivity"
+        android:onClick="openActivity"
         android:layout_margin="16dp"
         android:text="Multiplication Table"/>
 
 
-    <TextView
+    <Button
         android:layout_width="match_parent"
         android:layout_gravity="center"
         android:gravity="center"
         android:textSize="32sp"
         android:layout_height="0dp"
-        android:background="#fff"
-        android:onClick="openCalculatorActivity"
-        android:layout_weight="1"
-        android:layout_margin="16dp"
-        android:text="Calculator"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:textSize="32sp"
-        android:layout_height="0dp"
-        android:background="#fff"
-        android:onClick="openConverterActivity"
+        android:backgroundTint="#fff"
+        android:foreground="?attr/selectableItemBackground"
+        android:textColor="#555"
+        android:onClick="openActivity"
         android:layout_weight="1"
         android:layout_margin="16dp"
         android:text="Weight Converter"/>
