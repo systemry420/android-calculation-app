@@ -5,12 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -18,6 +20,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
     Spinner spView;
     ListView listView;
+    LinearLayout cardView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         spView = findViewById(R.id.spView);
         listView = findViewById(R.id.listView);
+        cardView = findViewById(R.id.cardView);
 
         ActivityClass activitiesArray[] = {
             new ActivityClass("Calculator", R.drawable.ic_calculator),
@@ -39,15 +43,35 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(position == 0) {
-                    // view cards hide list
+                    cardView.setVisibility(View.VISIBLE);
+                    listView.setVisibility(View.GONE);
                 } else {
-
+                    cardView.setVisibility(View.GONE);
+                    listView.setVisibility(View.VISIBLE);
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (activitiesArray[position].getText()) {
+                    case "Calculator":
+                        openCalculatorActivity();
+                        break;
+                    case "Multiplication Table":
+                        openMultiplicationActivity();
+                        break;
+                    case "Weight Converter":
+                        openConverterActivity();
+                        break;
+                }
             }
         });
     }

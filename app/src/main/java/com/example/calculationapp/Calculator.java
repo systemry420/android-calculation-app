@@ -13,8 +13,7 @@ public class Calculator extends AppCompatActivity {
     TextView tvDisplay;
     String lastPressed =  "";
     String currentDisplay = "0";
-    String firstNumber;
-    String secondNumber, currentNumber = "";
+    String firstNumber, secondNumber, currentNumber = "";
     String operation = "";
     private boolean evaluated = false;
 
@@ -34,8 +33,6 @@ public class Calculator extends AppCompatActivity {
         if (clickedBtnText.equals("C")) {
             clearDisplay();
         } else if( // if operation
-//            clickedBtnText.equals("/") || clickedBtnText.equals("x") || clickedBtnText.equals("DLT") ||
-//            clickedBtnText.equals("-") || clickedBtnText.equals("+") || clickedBtnText.equals("=")
                 "/-x+DLT=".contains(clickedBtnText)
         ) {
 
@@ -98,7 +95,7 @@ public class Calculator extends AppCompatActivity {
     }
 
     private String evaluate(String fn, String op, String sn) {
-        double result = 0;
+        double result = 0.0;
         Log.i("result", "evaluate: " + (fn + op + sn));
         switch (op) {
             case "+":
