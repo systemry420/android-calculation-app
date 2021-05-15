@@ -12,10 +12,11 @@ import com.google.android.material.button.MaterialButton;
 public class Calculator extends AppCompatActivity {
     TextView tvDisplay;
     String lastPressed =  "";
-    String currentText = "0";
+    String currentDisplay = "0";
     String firstNumber;
     String secondNumber, currentNumber = "";
     String operation = "";
+    private boolean evaluated = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,42 +34,56 @@ public class Calculator extends AppCompatActivity {
         if (clickedBtnText.equals("C")) {
             clearDisplay();
         } else if( // if operation
-            clickedBtnText.equals("/") || clickedBtnText.equals("x") || clickedBtnText.equals("DLT") ||
-            clickedBtnText.equals("-") || clickedBtnText.equals("+") || clickedBtnText.equals("=")
+//            clickedBtnText.equals("/") || clickedBtnText.equals("x") || clickedBtnText.equals("DLT") ||
+//            clickedBtnText.equals("-") || clickedBtnText.equals("+") || clickedBtnText.equals("=")
+                "/-x+DLT=".contains(clickedBtnText)
         ) {
 
             if (clickedBtnText.equals("DLT")) {
-                currentText = currentText.substring(0, currentText.length() - 1);
-                lastPressed = lastPressed.substring(0, lastPressed.length() - 1);
-                tvDisplay.setText(currentText);
+                if(currentDisplay.length() != 0 || lastPressed.length() != 0) {
+                    currentDisplay = currentDisplay.substring(0, currentDisplay.length() - 1);
+                    lastPressed = lastPressed.substring(0, lastPressed.length() - 1);
+                }
             } else {
                 if (operation == "") {
                     operation = clickedBtnText;
-                    Log.i("op = null", "handleClick: " + lastPressed);
-                    firstNumber = lastPressed;
-                    currentText += operation;
+                    Log.i("op = null", "handleClick: lastpressed" + lastPressed);
+                    if (lastPressed.equals(secondNumber))
+                        firstNumber = currentDisplay;
+                    else
+                        firstNumber = lastPressed;
+                    currentDisplay += operation;
                     lastPressed = "";
                 } else if (clickedBtnText.equals("=")) {
                     secondNumber = lastPressed;
-                    Log.i("op else ===", "handleClick: " + lastPressed);
-                    currentText = evaluate(firstNumber, operation, secondNumber);
+                    Log.i("op else ===", "handleClick: lastPressed = " + lastPressed);
+                    currentDisplay = evaluate(firstNumber, operation, secondNumber);
+                    evaluated = true;
                     operation = "";
                 }
-
-                tvDisplay.setText(currentText);
             }
+            tvDisplay.setText(currentDisplay);
         } else { // if number
 
-                if(currentText.equals("0") && currentNumber.equals("")){
-                    currentText = clickedBtnText;
+                if(currentDisplay.equals("0") && currentNumber.equals("")){
+                    currentDisplay = clickedBtnText;
                 }
                 else {
-                    currentText = currentText + clickedBtnText;
+                    if(evaluated){
+                        Log.i("!secondNumber.equals()", "handleClick: secondNumber = " + secondNumber);
+                        Toast.makeText(this, "a"+secondNumber, Toast.LENGTH_LONG).show();
+                        lastPressed = "";
+                        currentDisplay = "";
+                        evaluated = false;
+                        operation = "";
+                        secondNumber = "";
+                    }
+                    currentDisplay = currentDisplay + clickedBtnText;
                 }
                 currentNumber += clickedBtnText;
                 lastPressed += currentNumber;
                 currentNumber = "";
-                tvDisplay.setText(currentText);
+                tvDisplay.setText(currentDisplay);
 
                 return;
             }
@@ -76,7 +91,7 @@ public class Calculator extends AppCompatActivity {
 
     private void clearDisplay() {
         lastPressed = operation = "";
-        currentText = "0";
+        currentDisplay = "0";
         firstNumber = secondNumber = "";
         tvDisplay.setText("0");
         return;
