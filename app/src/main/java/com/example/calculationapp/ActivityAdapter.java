@@ -10,9 +10,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-public class ActivityAdapter extends ArrayAdapter<ActivityClass> {
-    public ActivityAdapter(Activity context, ActivityClass[] activityClass) {
-        super(context, 0, activityClass);
+public class ActivityAdapter extends ArrayAdapter<ActivityItem> {
+    public ActivityAdapter(Activity context, ActivityItem[] activityItems) {
+        super(context, 0, activityItems);
     }
 
 
@@ -25,12 +25,12 @@ public class ActivityAdapter extends ArrayAdapter<ActivityClass> {
                     R.layout.row, parent, false);
         }
 
-        ActivityClass currentActivityClass = getItem(position);
+        ActivityItem currentActivityItem = getItem(position);
 
         TextView text = listItemView.findViewById(R.id.itemTitle);
-        text.setText(currentActivityClass.getText());
+        text.setText(currentActivityItem.getText());
         ImageView image = listItemView.findViewById(R.id.itemIcon);
-        image.setImageResource(currentActivityClass.getIcon());
+        image.setImageResource(currentActivityItem.getIcon());
 
         return listItemView;
     }

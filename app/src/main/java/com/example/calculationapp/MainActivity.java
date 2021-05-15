@@ -5,13 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -30,33 +28,16 @@ public class MainActivity extends AppCompatActivity {
         listView = findViewById(R.id.listView);
         cardView = findViewById(R.id.cardView);
 
-        ActivityClass activitiesArray[] = {
-            new ActivityClass("Calculator", R.drawable.ic_calculator),
-            new ActivityClass("Multiplication Table", R.drawable.ic_multispeed),
-            new ActivityClass("Weight Converter", R.drawable.ic_weight),
+        ActivityItem[] activitiesArray = {
+            new ActivityItem("Calculator", R.drawable.ic_calculator),
+            new ActivityItem("Multiplication Table", R.drawable.ic_multispeed),
+            new ActivityItem("Weight Converter", R.drawable.ic_weight),
         };
 
         ActivityAdapter adapter = new ActivityAdapter(this, activitiesArray);
         listView.setAdapter(adapter);
 
-        spView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position == 0) {
-                    cardView.setVisibility(View.VISIBLE);
-                    listView.setVisibility(View.GONE);
-                } else {
-                    cardView.setVisibility(View.GONE);
-                    listView.setVisibility(View.VISIBLE);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
+        setSpinnerListeners();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -72,6 +53,26 @@ public class MainActivity extends AppCompatActivity {
                         openConverterActivity();
                         break;
                 }
+            }
+        });
+    }
+
+    private void setSpinnerListeners() {
+        spView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position == 0) {
+                    cardView.setVisibility(View.VISIBLE);
+                    listView.setVisibility(View.GONE);
+                } else {
+                    cardView.setVisibility(View.GONE);
+                    listView.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
     }

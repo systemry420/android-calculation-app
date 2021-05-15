@@ -1,6 +1,6 @@
 package com.example.calculationapp;
 
-public class ActivityClass {
+public class ActivityItem {
     String text;
     int icon;
 
@@ -12,7 +12,7 @@ public class ActivityClass {
         return icon;
     }
 
-    public ActivityClass(String text, int icon) {
+    public ActivityItem(String text, int icon) {
         this.text = text;
         this.icon = icon;
     }
