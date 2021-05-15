@@ -8,46 +8,67 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <Button
+    <Spinner
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:layout_margin="16dp"
-        android:layout_weight="1"
-        android:backgroundTint="#fff"
-        android:foreground="?attr/selectableItemBackground"
-        android:gravity="center"
-        android:onClick="openActivity"
-        android:text="Calculator"
-        android:textColor="#555"
-        android:textSize="32sp" />
+        android:layout_height="wrap_content"
+        android:entries="@array/viewOptions"
+        android:id="@+id/spView" />
 
-    <Button
+    <ListView
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
         android:layout_gravity="center"
         android:gravity="center"
-        android:textSize="32sp"
-        android:layout_height="0dp"
-        android:backgroundTint="#fff"
-        android:foreground="?attr/selectableItemBackground"
-        android:textColor="#555"
-        android:layout_weight="1"
-        android:onClick="openActivity"
-        android:layout_margin="16dp"
-        android:text="Multiplication Table"/>
+        android:visibility="gone"
+        android:layout_weight="4"
+        android:layout_height="match_parent">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            android:backgroundTint="#fff"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:onClick="openActivity"
+            android:text="Calculator"
+            android:textColor="#555"
+            android:textSize="32sp" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textSize="32sp"
+            android:layout_height="0dp"
+            android:backgroundTint="#fff"
+            android:foreground="?attr/selectableItemBackground"
+            android:textColor="#555"
+            android:layout_weight="1"
+            android:onClick="openActivity"
+            android:layout_margin="8dp"
+            android:text="Multiplication Table"/>
 
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:textSize="32sp"
-        android:layout_height="0dp"
-        android:backgroundTint="#fff"
-        android:foreground="?attr/selectableItemBackground"
-        android:textColor="#555"
-        android:onClick="openActivity"
-        android:layout_weight="1"
-        android:layout_margin="16dp"
-        android:text="Weight Converter"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textSize="32sp"
+            android:layout_height="0dp"
+            android:backgroundTint="#fff"
+            android:foreground="?attr/selectableItemBackground"
+            android:textColor="#555"
+            android:onClick="openActivity"
+            android:layout_weight="1"
+            android:layout_margin="8dp"
+            android:text="Weight Converter"/>
+    </LinearLayout>
 </LinearLayout>

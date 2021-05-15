@@ -5,20 +5,51 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+    Spinner spView;
+    ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        spView = findViewById(R.id.spView);
+        listView = findViewById(R.id.listView);
+
+        ActivityClass activitiesArray[] = {
+            new ActivityClass("Calculator", R.drawable.ic_calculator),
+            new ActivityClass("Multiplication Table", R.drawable.ic_multispeed),
+            new ActivityClass("Weight Converter", R.drawable.ic_weight),
+        };
+
+        ActivityAdapter adapter = new ActivityAdapter(this, activitiesArray);
+        listView.setAdapter(adapter);
+
+        spView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position == 0) {
+                    // view cards hide list
+                } else {
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     @Override
