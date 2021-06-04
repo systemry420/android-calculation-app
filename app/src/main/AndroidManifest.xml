@@ -9,14 +9,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CalculationApp">
-        <activity android:name=".Calculator"></activity>
+        <activity android:name=".EditNote"
+            android:label="Edit Note"/>
+        <activity android:name=".Notepad" android:label="Notepad"/>
+        <activity android:name=".Calculator" android:label="Calculator"/>
         <activity
             android:name=".WeightConverter"
             android:label="Weight Converter" />
         <activity
             android:name=".Multiplication"
             android:label="Multiplication Table" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:label="IUL Mobile App">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

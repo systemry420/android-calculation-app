@@ -10,67 +10,57 @@
 
     <Spinner
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_margin="16dp"
+        android:layout_height="50dp"
+        android:layout_margin="8dp"
         android:entries="@array/viewOptions"
         android:id="@+id/spView" />
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:id="@+id/listView" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_gravity="center"
         android:gravity="center"
-        android:visibility="gone"
+        android:visibility="visible"
         android:id="@+id/cardView"
         android:layout_weight="4"
-        android:layout_height="match_parent">
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_height="0dp">
 
         <Button
             android:layout_width="match_parent"
-            android:layout_height="0dp"
             android:layout_gravity="center"
-            android:layout_margin="8dp"
-            android:backgroundTint="#fff"
-            android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:layout_weight="1"
             android:onClick="openActivity"
+            style="@style/cardStyle"
+            android:text="Notepad"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            style="@style/cardStyle"
+            android:gravity="center"
             android:text="Calculator"
-            android:textColor="#555"
-            android:textSize="32sp" />
+            android:onClick="openActivity" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_gravity="center"
-            android:gravity="center"
-            android:textSize="32sp"
-            android:layout_height="0dp"
-            android:backgroundTint="#fff"
-            android:foreground="?attr/selectableItemBackground"
-            android:textColor="#555"
-            android:layout_weight="1"
+            style="@style/cardStyle"
             android:onClick="openActivity"
-            android:layout_margin="8dp"
             android:text="Multiplication Table"/>
 
 
         <Button
             android:layout_width="match_parent"
             android:layout_gravity="center"
-            android:gravity="center"
-            android:textSize="32sp"
-            android:layout_height="0dp"
-            android:backgroundTint="#fff"
-            android:foreground="?attr/selectableItemBackground"
-            android:textColor="#555"
             android:onClick="openActivity"
-            android:layout_weight="1"
-            android:layout_margin="8dp"
+            style="@style/cardStyle"
             android:text="Weight Converter"/>
     </LinearLayout>
 </LinearLayout>

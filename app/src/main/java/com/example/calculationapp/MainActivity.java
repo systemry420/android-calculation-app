@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         cardView = findViewById(R.id.cardView);
 
         ActivityItem[] activitiesArray = {
+            new ActivityItem("Notepad", R.drawable.ic_note),
             new ActivityItem("Calculator", R.drawable.ic_calculator),
             new ActivityItem("Multiplication Table", R.drawable.ic_multispeed),
             new ActivityItem("Weight Converter", R.drawable.ic_weight),
@@ -43,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (activitiesArray[position].getText()) {
+                    case "Notepad":
+                        openNotepadActivity();
+                        break;
                     case "Calculator":
                         openCalculatorActivity();
                         break;
@@ -56,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private void setSpinnerListeners() {
         spView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -87,6 +92,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getTitle().toString()) {
+            case "Notepad":
+                openNotepadActivity();
+                break;
             case "Calculator":
                 openCalculatorActivity();
                 break;
@@ -104,6 +112,9 @@ public class MainActivity extends AppCompatActivity {
     public void openActivity(View view) {
         TextView tv = (TextView) view;
         switch (tv.getText().toString()) {
+            case "Notepad":
+                openNotepadActivity();
+                break;
             case "Calculator":
                 openCalculatorActivity();
                 break;
@@ -116,6 +127,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    private void openNotepadActivity() {
+        Intent intent = new Intent();
+        intent.setClass(this, Notepad.class);
+        startActivity(intent);
+    }
 
     public void openCalculatorActivity() {
         Intent intent = new Intent();
