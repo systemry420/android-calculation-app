@@ -12,17 +12,38 @@
         android:orientation="vertical"
     >
 
-        <EditText
-            android:focusable="false"
-            android:padding="8dp"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Search notes" />
+            android:orientation="horizontal">
+            <EditText
+                android:focusable="false"
+                android:padding="8dp"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="8"
+                android:hint="Search notes" />
 
-        <ListView
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:padding="8dp"
+                android:gravity="center"
+                android:textSize="16dp"
+                android:text="3"
+                android:id="@+id/countDisplay" />
+        </LinearLayout>
+
+        <TextView
             android:layout_width="match_parent"
-            android:id="@+id/notesListView"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content"
+            android:id="@+id/display" />
+
+<!--        <ListView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:id="@+id/notesListView"-->
+<!--            android:layout_height="match_parent"/>-->
     </LinearLayout>
 
 

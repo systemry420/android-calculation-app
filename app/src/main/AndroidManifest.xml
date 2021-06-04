@@ -11,7 +11,13 @@
         android:theme="@style/Theme.CalculationApp">
         <activity android:name=".EditNote"
             android:label="Edit Note"/>
-        <activity android:name=".Notepad" android:label="Notepad"/>
+        <activity android:name=".Notepad" android:label="Notepad">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".Calculator" android:label="Calculator"/>
         <activity
             android:name=".WeightConverter"
@@ -21,11 +27,7 @@
             android:label="Multiplication Table" />
         <activity android:name=".MainActivity"
             android:label="IUL Mobile App">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

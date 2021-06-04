@@ -8,11 +8,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class Calculator extends AppCompatActivity {
-    TextView tvDisplay;
-    String lastPressed =  "";
-    String currentDisplay = "0";
-    String firstNumber, secondNumber, currentNumber = "";
-    String operation = "";
+    private TextView tvDisplay;
+    private String lastPressed =  "";
+    private String currentDisplay = "0";
+    private String firstNumber, secondNumber, currentNumber = "";
+    private String operation = "";
     private boolean evaluated = false;
 
     @Override

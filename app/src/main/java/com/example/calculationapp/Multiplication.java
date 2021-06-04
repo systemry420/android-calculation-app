@@ -21,10 +21,10 @@ import java.util.Random;
 
 public class Multiplication extends AppCompatActivity {
     int product = 0, score = 0;
-    TextView tvNumber1, tvNumber2, tvTimer, message;
-    EditText etAnswer;
-    Button btnStart, next;
-    LinearLayout welcomeScreen;
+    private TextView tvNumber1, tvNumber2, tvTimer, message;
+    private EditText etAnswer;
+    private Button btnStart, next;
+    private LinearLayout welcomeScreen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

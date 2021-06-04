@@ -11,9 +11,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class WeightConverter extends AppCompatActivity {
-    EditText etInput;
-    TextView tvGram, tvKilogram, tvOunce;
-    LinearLayout card1, card2, card3;
+    private EditText etInput;
+    private TextView tvGram, tvKilogram, tvOunce;
+    private LinearLayout card1, card2, card3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

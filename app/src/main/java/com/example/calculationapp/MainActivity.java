@@ -16,9 +16,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    Spinner spView;
-    ListView listView;
-    LinearLayout cardView;
+    private Spinner spView;
+    private ListView listView;
+    private LinearLayout cardView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
