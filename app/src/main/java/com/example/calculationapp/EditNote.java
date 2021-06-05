@@ -10,8 +10,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
-import com.example.calculationapp.data.NoteContract;
-
 public class EditNote extends AppCompatActivity {
     private SQLiteDatabase db;
     private EditText noteTitle, noteContent;
@@ -48,10 +46,9 @@ public class EditNote extends AppCompatActivity {
     }
 
     private void insertNote() {
-        String sql = "INSERT INTO " + NoteContract.TABLE +
-                    "('" + NoteContract.COL_TITLE + "' , '" + NoteContract.COL_DATE + "' , '"
-                    + NoteContract.COL_CONTENT + "') " +
-                    "VALUES ('" + noteTitle.getText().toString().trim() +"','aaa', '"
+        String sql = "INSERT INTO notes(title, date, content)"
+                    + " VALUES ('" + noteTitle.getText().toString().trim()
+                    +"','aaa', '"
                     + noteContent.getText().toString() + "');";
         db.execSQL(sql);
 
