@@ -5,13 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_margin="4dp"
     tools:context=".EditNote">
 
     <EditText
         android:layout_width="match_parent"
         android:layout_weight="1"
-        android:maxLength="20"
-        android:padding="16dp"
+        android:maxLength="30"
+        android:padding="8dp"
+        android:textColor="#777"
+        android:textSize="20sp"
         android:id="@+id/noteTitleEditText"
         android:layout_height="0dp"
         android:hint="Note title" />
@@ -19,8 +22,9 @@
     <EditText
         android:inputType="textMultiLine"
         android:layout_width="match_parent"
+        android:textColor="#555"
         android:id="@+id/noteContentEditText"
-        android:padding="16dp"
+        android:padding="8dp"
         android:layout_weight="9"
         android:gravity="top"
         android:layout_height="0dp"/>

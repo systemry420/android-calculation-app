@@ -40,7 +40,7 @@
                     android:textSize="32sp"
                     android:foreground="?attr/selectableItemBackground"
                     android:backgroundTint="#eee"
-                    android:textColor="@color/purple_500"
+                    android:textColor="@color/teal_700"
                     android:onClick="handleClick"
                     android:text="C" />
                 <Button
@@ -51,7 +51,7 @@
                     android:onClick="handleClick"
                     android:foreground="?attr/selectableItemBackground"
                     android:backgroundTint="#eee"
-                    android:textColor="@color/purple_500"
+                    android:textColor="@color/teal_700"
                     android:layout_marginRight="4dp"
                     android:layout_marginLeft="4dp"
                     android:text="/" />
@@ -61,7 +61,7 @@
                     android:layout_weight="1"
                     android:foreground="?attr/selectableItemBackground"
                     android:backgroundTint="#eee"
-                    android:textColor="@color/purple_500"
+                    android:textColor="@color/teal_700"
                     android:layout_marginRight="4dp"
                     android:layout_marginLeft="4dp"
                     android:textSize="32sp"
@@ -232,7 +232,7 @@
                 android:layout_weight="1"
                 android:onClick="handleClick"
                 android:backgroundTint="#eee"
-                android:textColor="@color/purple_500"
+                android:textColor="@color/teal_700"
                 android:layout_marginRight="4dp"
                 android:layout_marginLeft="4dp"
                 android:text="DLT" />
@@ -245,7 +245,7 @@
                 android:layout_weight="1"
                 android:foreground="?attr/selectableItemBackground"
                 android:backgroundTint="#eee"
-                android:textColor="@color/purple_500"
+                android:textColor="@color/teal_700"
                 android:layout_marginRight="4dp"
                 android:layout_marginLeft="4dp"
                 android:text="-" />
@@ -258,7 +258,7 @@
                 android:onClick="handleClick"
                 android:foreground="?attr/selectableItemBackground"
                 android:backgroundTint="#eee"
-                android:textColor="@color/purple_500"
+                android:textColor="@color/teal_700"
                 android:layout_marginRight="4dp"
                 android:layout_marginLeft="4dp"
                 android:text="+" />
@@ -268,7 +268,6 @@
                 android:layout_height="0dp"
                 android:textSize="32sp"
                 android:onClick="handleClick"
-                android:backgroundTint="#647CFF"
                 android:layout_marginRight="4dp"
                 android:layout_marginLeft="4dp"
                 android:layout_weight="2"

@@ -9,36 +9,46 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-    >
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <EditText
-                android:focusable="false"
-                android:padding="8dp"
+                android:focusable="true"
+                android:layout_margin="8dp"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
+                android:layout_height="60dp"
                 android:layout_weight="8"
-                android:hint="Search notes" />
+                android:hint="Search note title" />
 
-            <TextView
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:padding="8dp"
+                android:layout_gravity="center"
                 android:gravity="center"
-                android:textSize="16dp"
-                android:text="3"
-                android:id="@+id/countDisplay" />
-        </LinearLayout>
+                android:layout_height="60dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:text="3"
+                    android:id="@+id/countDisplay" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/display" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:text="Notes"/>
+
+            </LinearLayout>
+        </LinearLayout>
 
         <ListView
             android:layout_width="match_parent"

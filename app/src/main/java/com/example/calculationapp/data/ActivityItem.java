@@ -1,4 +1,4 @@
-package com.example.calculationapp;
+package com.example.calculationapp.data;
 
 public class ActivityItem {
     String text;

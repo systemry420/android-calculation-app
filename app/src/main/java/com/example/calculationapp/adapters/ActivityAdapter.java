@@ -1,4 +1,4 @@
-package com.example.calculationapp;
+package com.example.calculationapp.adapters;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -9,6 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.example.calculationapp.data.ActivityItem;
+import com.example.calculationapp.R;
 
 public class ActivityAdapter extends ArrayAdapter<ActivityItem> {
     public ActivityAdapter(Activity context, ActivityItem[] activityItems) {

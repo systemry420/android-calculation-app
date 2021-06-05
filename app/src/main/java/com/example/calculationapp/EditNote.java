@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -66,21 +68,25 @@ public class EditNote extends AppCompatActivity {
 
     private void saveNote() {
         String sqlString = "";
-        if (ID != null) {
-            sqlString  = "UPDATE notes"
-                    + " SET title='" + noteTitleEditText.getText().toString().trim()
-                    +"', date=' " + formattedDate + "', content='"
-                    + noteContentEditText.getText().toString()
-                    + "' WHERE ID='" + Integer.parseInt(ID) +"';";
-        }
-        else {
-            sqlString = "INSERT INTO notes(title, date, content)"
-                    + " VALUES ('" + noteTitleEditText.getText().toString().trim()
-                    +"',' " + formattedDate + "', '"
-                    + noteContentEditText.getText().toString() + "');";
-        }
 
-        db.execSQL(sqlString);
+        if (!noteTitleEditText.getText().toString().trim().equals("") ||
+            !noteContentEditText.getText().toString().trim().equals("")) {
+            if (ID != null) {
+                sqlString  = "UPDATE notes SET title='" + noteTitleEditText.getText().toString().trim() + "', "
+                        + "date='" + formattedDate + "', "
+                        + "content='"+ noteContentEditText.getText().toString() + "' "
+                        + "WHERE ID='" + Integer.parseInt(ID) +"';";
+            }
+            else {
+                sqlString = "INSERT INTO notes(title, date, content)"
+                        + " VALUES ('" + noteTitleEditText.getText().toString().trim()
+                        +"', '" + formattedDate + "', '"
+                        + noteContentEditText.getText().toString() + "');";
+            }
+            db.execSQL(sqlString);
+        } else {
+            Toast.makeText(this, "You can\'t save empty notes!", Toast.LENGTH_LONG).show();
+        }
         finish();
     }
 

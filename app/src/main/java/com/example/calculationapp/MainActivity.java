@@ -15,6 +15,9 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.calculationapp.adapters.ActivityAdapter;
+import com.example.calculationapp.data.ActivityItem;
+
 public class MainActivity extends AppCompatActivity {
     private Spinner spView;
     private ListView listView;
