@@ -4,8 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -16,17 +18,30 @@ import java.util.Locale;
 
 public class EditNote extends AppCompatActivity {
     private SQLiteDatabase db;
-    private EditText noteTitle, noteContent;
+    private EditText noteTitleEditText, noteContentEditText;
+    Date now; SimpleDateFormat df; String formattedDate;
+    String ID;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_note);
-
         db = openOrCreateDatabase("notesDB", Context.MODE_PRIVATE, null);
 
-        noteTitle = findViewById(R.id.noteTitleEditText);
-        noteContent = findViewById(R.id.noteContentEditText);
+        noteTitleEditText = findViewById(R.id.noteTitleEditText);
+        noteContentEditText = findViewById(R.id.noteContentEditText);
+        now = Calendar.getInstance().getTime();
+        df = new SimpleDateFormat("dd-MMM-yyyy HH:mm", Locale.getDefault());
+        formattedDate = df.format(now);
+
+        intent = getIntent();
+        ID = intent.getStringExtra("ID");
+        Log.i("EDITNOTE", "onCreate: " + ID);
+        if(ID != null) {
+            noteTitleEditText.setText(intent.getStringExtra("title"));
+            noteContentEditText.setText(intent.getStringExtra("content"));
+        }
     }
 
     @Override
@@ -40,7 +55,7 @@ public class EditNote extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.saveNote:
-                insertNote();
+                saveNote();
                 break;
             case R.id.deleteNote:
                 deleteNote();
@@ -49,22 +64,28 @@ public class EditNote extends AppCompatActivity {
         return true;
     }
 
-    private void insertNote() {
-        Date now = Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy HH:mm", Locale.getDefault());
-        String formattedDate = df.format(now);
-
-        String sql = "INSERT INTO notes(title, date, content)"
-                    + " VALUES ('" + noteTitle.getText().toString().trim()
+    private void saveNote() {
+        String sqlString = "";
+        if (ID != null) {
+            sqlString  = "UPDATE notes"
+                    + " SET title='" + noteTitleEditText.getText().toString().trim()
+                    +"', date=' " + formattedDate + "', content='"
+                    + noteContentEditText.getText().toString()
+                    + "' WHERE ID='" + Integer.parseInt(ID) +"';";
+        }
+        else {
+            sqlString = "INSERT INTO notes(title, date, content)"
+                    + " VALUES ('" + noteTitleEditText.getText().toString().trim()
                     +"',' " + formattedDate + "', '"
-                    + noteContent.getText().toString() + "');";
-        db.execSQL(sql);
+                    + noteContentEditText.getText().toString() + "');";
+        }
 
+        db.execSQL(sqlString);
         finish();
     }
 
     private void deleteNote() {
-        String sql = "DELETE FROM notes WHERE id=" + 1;
+        String sql = "DELETE FROM notes WHERE id=" + ID;
         db.execSQL(sql);
         finish();
     }

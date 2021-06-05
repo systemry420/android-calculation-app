@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -35,9 +36,20 @@ public class Notepad extends AppCompatActivity {
         notesListView = findViewById(R.id.notesListView);
 
         db = openOrCreateDatabase("notesDB", Context.MODE_PRIVATE, null);
-        db.execSQL("Create table if not exists notes(id VARCHAR Primary key, title VARCHAR, date VARCHAR, content VARCHAR);");
+        db.execSQL("Create table if not exists notes(ID INTEGER Primary key, title VARCHAR, date VARCHAR, content VARCHAR);");
 
         fetchNotes();
+
+        notesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(Notepad.this, EditNote.class);
+                intent.putExtra("ID", notesList.get(position).ID);
+                intent.putExtra("title", notesList.get(position).title);
+                intent.putExtra("content", notesList.get(position).content);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -52,10 +64,11 @@ public class Notepad extends AppCompatActivity {
         notesList = new ArrayList<>();
         if(c.moveToFirst()) {
             do {
+                String ID = c.getString(0);
                 String title = c.getString(1);
                 String date = c.getString(2);
                 String content = c.getString(3);
-                notesList.add(new NoteData(title, date, content));
+                notesList.add(new NoteData(ID, title, date, content));
             } while(c.moveToNext());
         }
 
@@ -72,13 +85,25 @@ public class Notepad extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.deleteAll:
+            case R.id.deleteAllNotes:
                 deleteAllNotes();
+                break;
+
+            case R.id.deleteTable:
+                deleteNotesTable();
+                break;
         }
-        return super.onOptionsItemSelected(item);
+        return true;
+    }
+
+    private void deleteNotesTable() {
+        String sql = "DROP TABLE notes";
+        db.execSQL(sql);
+        fetchNotes();
     }
 
     private void deleteAllNotes() {
+//        show dialog
         String sql = "Delete From notes";
         db.execSQL(sql);
         fetchNotes();

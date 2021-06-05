@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:title="Delete all notes" android:id="@+id/deleteAll" />
+    <item android:title="Delete all notes" android:id="@+id/deleteAllNotes" />
+    <item android:title="Delete notes table" android:id="@+id/deleteTable" />
 </menu>
