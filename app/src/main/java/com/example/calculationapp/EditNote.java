@@ -9,6 +9,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class EditNote extends AppCompatActivity {
     private SQLiteDatabase db;
@@ -21,8 +25,8 @@ public class EditNote extends AppCompatActivity {
 
         db = openOrCreateDatabase("notesDB", Context.MODE_PRIVATE, null);
 
-        noteTitle = findViewById(R.id.noteTitle);
-        noteContent = findViewById(R.id.noteContent);
+        noteTitle = findViewById(R.id.noteTitleEditText);
+        noteContent = findViewById(R.id.noteContentEditText);
     }
 
     @Override
@@ -46,9 +50,13 @@ public class EditNote extends AppCompatActivity {
     }
 
     private void insertNote() {
+        Date now = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy HH:mm", Locale.getDefault());
+        String formattedDate = df.format(now);
+
         String sql = "INSERT INTO notes(title, date, content)"
                     + " VALUES ('" + noteTitle.getText().toString().trim()
-                    +"','aaa', '"
+                    +"',' " + formattedDate + "', '"
                     + noteContent.getText().toString() + "');";
         db.execSQL(sql);
 
@@ -56,6 +64,8 @@ public class EditNote extends AppCompatActivity {
     }
 
     private void deleteNote() {
-
+        String sql = "DELETE FROM notes WHERE id=" + 1;
+        db.execSQL(sql);
+        finish();
     }
 }

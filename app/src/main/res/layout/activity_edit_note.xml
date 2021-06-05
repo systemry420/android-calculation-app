@@ -7,31 +7,21 @@
     android:orientation="vertical"
     tools:context=".EditNote">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <EditText
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:maxLength="20"
-            android:padding="8dp"
-            android:id="@+id/noteTitle"
-            android:layout_height="wrap_content"
-            android:hint="Note title" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="today 3 pm"
-            android:padding="8dp"/>
-    </LinearLayout>
-
     <EditText
         android:layout_width="match_parent"
-        android:id="@+id/noteContent"
-        android:padding="8dp"
-        android:layout_height="100dp"/>
+        android:layout_weight="1"
+        android:maxLength="20"
+        android:padding="16dp"
+        android:id="@+id/noteTitleEditText"
+        android:layout_height="0dp"
+        android:hint="Note title" />
+
+    <EditText
+        android:inputType="textMultiLine"
+        android:layout_width="match_parent"
+        android:id="@+id/noteContentEditText"
+        android:padding="16dp"
+        android:layout_weight="9"
+        android:gravity="top"
+        android:layout_height="0dp"/>
 </LinearLayout>
