@@ -1,9 +1,11 @@
 package com.example.calculationapp;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -21,23 +23,21 @@ import java.util.Locale;
 public class EditNote extends AppCompatActivity {
     private SQLiteDatabase db;
     private EditText noteTitleEditText, noteContentEditText;
-    Date now; SimpleDateFormat df; String formattedDate;
-    String ID;
-    Intent intent;
+    private String formattedDate;
+    private String ID;
+    private AlertDialog.Builder alert;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_note);
         db = openOrCreateDatabase("notesDB", Context.MODE_PRIVATE, null);
+        alert = new AlertDialog.Builder(this);
 
         noteTitleEditText = findViewById(R.id.noteTitleEditText);
         noteContentEditText = findViewById(R.id.noteContentEditText);
-        now = Calendar.getInstance().getTime();
-        df = new SimpleDateFormat("dd-MMM-yyyy HH:mm", Locale.getDefault());
-        formattedDate = df.format(now);
 
-        intent = getIntent();
+        Intent intent = getIntent();
         ID = intent.getStringExtra("ID");
         Log.i("EDITNOTE", "onCreate: " + ID);
         if(ID != null) {
@@ -68,6 +68,9 @@ public class EditNote extends AppCompatActivity {
 
     private void saveNote() {
         String sqlString = "";
+        Date now = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("MMM, dd, yyyy HH:mm", Locale.getDefault());
+        formattedDate = df.format(now);
 
         if (!noteTitleEditText.getText().toString().trim().equals("") ||
             !noteContentEditText.getText().toString().trim().equals("")) {
@@ -84,6 +87,7 @@ public class EditNote extends AppCompatActivity {
                         + noteContentEditText.getText().toString() + "');";
             }
             db.execSQL(sqlString);
+            Toast.makeText(this, "Note was saved successfully!", Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(this, "You can\'t save empty notes!", Toast.LENGTH_LONG).show();
         }
@@ -91,8 +95,22 @@ public class EditNote extends AppCompatActivity {
     }
 
     private void deleteNote() {
-        String sql = "DELETE FROM notes WHERE id=" + ID;
-        db.execSQL(sql);
-        finish();
+        alert.setTitle("Delete")
+                .setMessage("Are you sure you want to delete this note?")
+                .setCancelable(false)
+                .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String sql = "DELETE FROM notes WHERE id=" + ID;
+                        try {
+                            db.execSQL(sql);
+                        } catch (Exception e) {}
+                        Toast.makeText(EditNote.this, "Note has been deleted", Toast.LENGTH_LONG).show();
+                        finish();
+                    }
+                }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) { }
+        }).show();
     }
 }

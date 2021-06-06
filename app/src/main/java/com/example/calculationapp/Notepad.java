@@ -1,9 +1,11 @@
 package com.example.calculationapp;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -18,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.calculationapp.adapters.NotesAdapter;
 import com.example.calculationapp.data.NoteData;
@@ -25,11 +28,12 @@ import com.example.calculationapp.data.NoteData;
 import java.util.ArrayList;
 
 public class Notepad extends AppCompatActivity {
-    SQLiteDatabase db;
+    private SQLiteDatabase db;
     private TextView display, countDisplay;
-    EditText searchEditText;
-    ArrayList<NoteData> notesList, filteredList;
-    ListView notesListView;
+    private EditText searchEditText;
+    private ArrayList<NoteData> notesList, filteredList;
+    private ListView notesListView;
+    private AlertDialog.Builder alert;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,32 +47,20 @@ public class Notepad extends AppCompatActivity {
         notesList = new ArrayList<>();
         filteredList = new ArrayList<>();
 
+        alert = new AlertDialog.Builder(this);
+
         db = openOrCreateDatabase("notesDB", Context.MODE_PRIVATE, null);
         db.execSQL("Create table if not exists notes(ID INTEGER Primary key, title VARCHAR, date VARCHAR, content VARCHAR);");
 
         fetchNotes();
 
-        notesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String noteID, noteTitle, noteDate, noteContent;
-                if (filteredList.size() > 0) {
-                    noteID = filteredList.get(position).ID;
-                    noteTitle =  filteredList.get(position).title;
-                    noteContent =  filteredList.get(position).content;
-                } else {
-                    noteID = notesList.get(position).ID;
-                    noteTitle =  notesList.get(position).title;
-                    noteContent =  notesList.get(position).content;
-                }
-                Intent intent = new Intent(Notepad.this, EditNote.class);
-                intent.putExtra("ID", noteID);
-                intent.putExtra("title", noteTitle);
-                intent.putExtra("content", noteContent);
-                startActivity(intent);
-            }
-        });
+        setListViewListeners();
 
+        setSearchEditTextListeners();
+
+    }
+
+    private void setSearchEditTextListeners() {
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -100,6 +92,29 @@ public class Notepad extends AppCompatActivity {
         });
     }
 
+    private void setListViewListeners() {
+        notesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String noteID, noteTitle, noteContent;
+                if (filteredList.size() > 0) {
+                    noteID = filteredList.get(position).ID;
+                    noteTitle =  filteredList.get(position).title;
+                    noteContent =  filteredList.get(position).content;
+                } else {
+                    noteID = notesList.get(position).ID;
+                    noteTitle =  notesList.get(position).title;
+                    noteContent =  notesList.get(position).content;
+                }
+                Intent intent = new Intent(Notepad.this, EditNote.class);
+                intent.putExtra("ID", noteID);
+                intent.putExtra("title", noteTitle);
+                intent.putExtra("content", noteContent);
+                startActivity(intent);
+            }
+        });
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -107,19 +122,21 @@ public class Notepad extends AppCompatActivity {
     }
 
     private void fetchNotes() {
-        Cursor c = db.rawQuery("Select * from notes", null);
-        countDisplay.setText(String.valueOf(c.getCount()));
-        notesList.clear();
-        filteredList.clear();
-        if(c.moveToFirst()) {
-            do {
-                String ID = c.getString(0);
-                String title = c.getString(1);
-                String date = c.getString(2);
-                String content = c.getString(3);
-                notesList.add(new NoteData(ID, title, date, content));
-            } while(c.moveToNext());
-        }
+        try {
+            Cursor c = db.rawQuery("Select * from notes", null);
+            countDisplay.setText(String.valueOf(c.getCount()));
+            notesList.clear();
+            filteredList.clear();
+            if(c.moveToFirst()) {
+                do {
+                    String ID = c.getString(0);
+                    String title = c.getString(1);
+                    String date = c.getString(2);
+                    String content = c.getString(3);
+                    notesList.add(new NoteData(ID, title, date, content));
+                } while(c.moveToNext());
+            }
+        } catch (Exception e) { }
 
         NotesAdapter adapter = new NotesAdapter(this, 0, notesList);
         notesListView.setAdapter(adapter);
@@ -137,29 +154,35 @@ public class Notepad extends AppCompatActivity {
             case R.id.deleteAllNotes:
                 deleteAllNotes();
                 break;
-
-            case R.id.deleteTable:
-                deleteNotesTable();
-                break;
         }
         return true;
     }
 
-    private void deleteNotesTable() {
-        String sql = "DROP TABLE notes";
-        db.execSQL(sql);
-        fetchNotes();
-    }
-
     private void deleteAllNotes() {
-//        TODO: show dialogs
-        String sql = "Delete From notes";
-        db.execSQL(sql);
-        fetchNotes();
+        alert.setTitle("Delete")
+                .setMessage("Are you sure you want to delete all notes?")
+                .setCancelable(false)
+                .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String sql = "Delete From notes";
+                        try {
+                            db.execSQL(sql);
+                        } catch (Exception e) {}
+                        Toast.makeText(Notepad.this, "All notes have been deleted!", Toast.LENGTH_LONG).show();
+                        fetchNotes();
+                    }
+                }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        }).show();
     }
 
     public void openEditNoteActivity(View view) {
         Intent intent = new Intent(this, EditNote.class);
         startActivity(intent);
     }
+
 }
