@@ -8,11 +8,14 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -24,7 +27,8 @@ import java.util.ArrayList;
 public class Notepad extends AppCompatActivity {
     SQLiteDatabase db;
     private TextView display, countDisplay;
-    ArrayList<NoteData> notesList;
+    EditText searchEditText;
+    ArrayList<NoteData> notesList, filteredList;
     ListView notesListView;
 
     @Override
@@ -34,6 +38,10 @@ public class Notepad extends AppCompatActivity {
         display = findViewById(R.id.display);
         countDisplay = findViewById(R.id.countDisplay);
         notesListView = findViewById(R.id.notesListView);
+        searchEditText = findViewById(R.id.searchEditText);
+
+        notesList = new ArrayList<>();
+        filteredList = new ArrayList<>();
 
         db = openOrCreateDatabase("notesDB", Context.MODE_PRIVATE, null);
         db.execSQL("Create table if not exists notes(ID INTEGER Primary key, title VARCHAR, date VARCHAR, content VARCHAR);");
@@ -43,11 +51,51 @@ public class Notepad extends AppCompatActivity {
         notesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String noteID, noteTitle, noteDate, noteContent;
+                if (filteredList.size() > 0) {
+                    noteID = filteredList.get(position).ID;
+                    noteTitle =  filteredList.get(position).title;
+                    noteContent =  filteredList.get(position).content;
+                } else {
+                    noteID = notesList.get(position).ID;
+                    noteTitle =  notesList.get(position).title;
+                    noteContent =  notesList.get(position).content;
+                }
                 Intent intent = new Intent(Notepad.this, EditNote.class);
-                intent.putExtra("ID", notesList.get(position).ID);
-                intent.putExtra("title", notesList.get(position).title);
-                intent.putExtra("content", notesList.get(position).content);
+                intent.putExtra("ID", noteID);
+                intent.putExtra("title", noteTitle);
+                intent.putExtra("content", noteContent);
                 startActivity(intent);
+            }
+        });
+
+        searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filteredList.clear();
+                for (int i = 0; i < notesList.size(); i++) {
+                    if (notesList.get(i).title.contains(s)) {
+                        filteredList.add(new NoteData(
+                                notesList.get(i).ID,
+                                notesList.get(i).title,
+                                notesList.get(i).date,
+                                notesList.get(i).content
+                        ));
+                    }
+                }
+                countDisplay.setText(String.valueOf(filteredList.size()));
+                NotesAdapter adapter = new NotesAdapter(Notepad.this, 0, filteredList);
+                notesListView.setAdapter(adapter);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
     }
@@ -61,7 +109,8 @@ public class Notepad extends AppCompatActivity {
     private void fetchNotes() {
         Cursor c = db.rawQuery("Select * from notes", null);
         countDisplay.setText(String.valueOf(c.getCount()));
-        notesList = new ArrayList<>();
+        notesList.clear();
+        filteredList.clear();
         if(c.moveToFirst()) {
             do {
                 String ID = c.getString(0);
@@ -103,7 +152,7 @@ public class Notepad extends AppCompatActivity {
     }
 
     private void deleteAllNotes() {
-//        show dialog
+//        TODO: show dialogs
         String sql = "Delete From notes";
         db.execSQL(sql);
         fetchNotes();
