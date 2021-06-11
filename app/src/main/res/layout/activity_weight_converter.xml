@@ -13,7 +13,7 @@
         android:layout_height="40dp"
         android:layout_margin="24dp"
         android:inputType="number"
-        android:hint="Please enter weight in pound"
+        android:hint="Please enter weight in kilogram"
         android:background="#fff"
         android:id="@+id/etInput"/>
 
@@ -47,7 +47,7 @@
         android:layout_width="match_parent"
         android:layout_margin="16dp"
         android:padding="16dp"
-        android:id="@+id/cardKilogram"
+        android:id="@+id/cardPound"
         android:layout_weight="1"
         android:visibility="invisible"
         android:background="#dc3545"
@@ -57,14 +57,14 @@
             android:layout_height="wrap_content"
             android:textSize="40sp"
             android:textColor="#fff"
-            android:text="Kilogram:"/>
+            android:text="Pound:"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="24sp"
             android:textColor="#fff"
-            android:id="@+id/tvKilogram"/>
+            android:id="@+id/tvPound"/>
     </LinearLayout>
 
     <LinearLayout

@@ -22,7 +22,7 @@
                 android:layout_height="60dp"
                 android:layout_weight="8"
                 android:id="@+id/searchEditText"
-                android:hint="Search note title" />
+                android:hint="Search notes by title" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
                     android:gravity="center"
-                    android:textSize="20sp"
+                    android:textSize="22sp"
                     android:text="3"
                     android:id="@+id/countDisplay" />
 
@@ -45,7 +45,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
                     android:gravity="center"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:text="Notes"/>
 
             </LinearLayout>

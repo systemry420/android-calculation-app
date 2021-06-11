@@ -18,7 +18,7 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:visibility="visible"
         android:id="@+id/listView" />
 
     <LinearLayout
@@ -26,7 +26,7 @@
         android:orientation="vertical"
         android:layout_gravity="center"
         android:gravity="center"
-        android:visibility="visible"
+        android:visibility="gone"
         android:id="@+id/cardView"
         android:layout_weight="4"
         android:layout_marginRight="16dp"
@@ -38,7 +38,14 @@
             android:layout_gravity="center"
             android:onClick="openActivity"
             style="@style/cardStyle"
-            android:text="Notepad"/>
+            android:text="Weight Converter"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            style="@style/cardStyle"
+            android:onClick="openActivity"
+            android:text="Multiplication Table"/>
 
         <Button
             android:layout_width="match_parent"
@@ -51,16 +58,8 @@
         <Button
             android:layout_width="match_parent"
             android:layout_gravity="center"
-            style="@style/cardStyle"
-            android:onClick="openActivity"
-            android:text="Multiplication Table"/>
-
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_gravity="center"
             android:onClick="openActivity"
             style="@style/cardStyle"
-            android:text="Weight Converter"/>
+            android:text="Notepad"/>
     </LinearLayout>
 </LinearLayout>

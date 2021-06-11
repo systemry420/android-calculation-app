@@ -11,15 +11,15 @@
         android:id="@+id/noteTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="22sp"
-        android:text="wvaha" />
+        android:textSize="24sp"
+        android:text="note 123" />
 
     <TextView
         android:id="@+id/noteDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#999"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:layout_marginTop="2dp"
-        android:text="05-jun" />
+        android:text="05-jun 2021" />
 </LinearLayout>

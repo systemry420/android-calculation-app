@@ -32,10 +32,10 @@ public class MainActivity extends AppCompatActivity {
         cardView = findViewById(R.id.cardView);
 
         ActivityItem[] activitiesArray = {
-            new ActivityItem("Notepad", R.drawable.ic_note),
-            new ActivityItem("Calculator", R.drawable.ic_calculator),
-            new ActivityItem("Multiplication Table", R.drawable.ic_multispeed),
             new ActivityItem("Weight Converter", R.drawable.ic_weight),
+            new ActivityItem("Multiplication Table", R.drawable.ic_multispeed),
+            new ActivityItem("Calculator", R.drawable.ic_calculator),
+            new ActivityItem("Notepad", R.drawable.ic_note),
         };
 
         ActivityAdapter adapter = new ActivityAdapter(this, activitiesArray);
@@ -70,11 +70,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(position == 0) {
-                    cardView.setVisibility(View.VISIBLE);
-                    listView.setVisibility(View.GONE);
-                } else {
                     cardView.setVisibility(View.GONE);
                     listView.setVisibility(View.VISIBLE);
+                } else {
+                    cardView.setVisibility(View.VISIBLE);
+                    listView.setVisibility(View.GONE);
                 }
             }
 

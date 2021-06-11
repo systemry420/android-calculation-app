@@ -29,6 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:id="@+id/btnStart"
+            android:padding="16dp"
             android:text="Start Game"/>
     </LinearLayout>
 
@@ -85,6 +86,7 @@
         android:layout_height="wrap_content"
         android:text="Next"
         android:id="@+id/next"
+        android:padding="16dp"
         android:enabled="false"
         android:layout_margin="16dp"/>
 

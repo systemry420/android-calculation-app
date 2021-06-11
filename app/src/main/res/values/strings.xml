@@ -2,7 +2,7 @@
     <string name="app_name">CalculationApp</string>
 
     <string-array name="viewOptions">
-        <item>Cards View</item>
         <item>List View</item>
+        <item>Cards View</item>
     </string-array>
 </resources>

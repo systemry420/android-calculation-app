@@ -39,7 +39,7 @@ public class EditNote extends AppCompatActivity {
 
         Intent intent = getIntent();
         ID = intent.getStringExtra("ID");
-        Log.i("EDITNOTE", "onCreate: " + ID);
+        // Log.i("EDITNOTE", "onCreate: " + ID);
         if(ID != null) {
             noteTitleEditText.setText(intent.getStringExtra("title"));
             noteContentEditText.setText(intent.getStringExtra("content"));
@@ -89,7 +89,7 @@ public class EditNote extends AppCompatActivity {
             db.execSQL(sqlString);
             Toast.makeText(this, "Note was saved successfully!", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(this, "You can\'t save empty notes!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "You can't save empty notes!", Toast.LENGTH_LONG).show();
         }
         finish();
     }

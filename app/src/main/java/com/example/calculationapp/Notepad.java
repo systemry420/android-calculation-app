@@ -52,15 +52,57 @@ public class Notepad extends AppCompatActivity {
         db = openOrCreateDatabase("notesDB", Context.MODE_PRIVATE, null);
         db.execSQL("Create table if not exists notes(ID INTEGER Primary key, title VARCHAR, date VARCHAR, content VARCHAR);");
 
-        fetchNotes();
+        fetchNotes("Select * from notes order by date desc");
 
-        setListViewListeners();
+        setListViewListener();
 
-        setSearchEditTextListeners();
-
+        setSearchEditTextListener();
     }
 
-    private void setSearchEditTextListeners() {
+    private void fetchNotes(String query) {
+        try {
+            Cursor c = db.rawQuery(query, null);
+            countDisplay.setText(String.valueOf(c.getCount()));
+            notesList.clear();
+            filteredList.clear();
+            if(c.moveToFirst()) {
+                do {
+                    String ID = c.getString(0);
+                    String title = c.getString(1);
+                    String date = c.getString(2);
+                    String content = c.getString(3);
+                    notesList.add(new NoteData(ID, title, date, content));
+                } while(c.moveToNext());
+            }
+        } catch (Exception e) { }
+
+        NotesAdapter adapter = new NotesAdapter(this, 0, notesList);
+        notesListView.setAdapter(adapter);
+    }
+
+    private void deleteAllNotes() {
+        alert.setTitle("Delete")
+         .setMessage("Are you sure you want to delete all notes?")
+         .setCancelable(false)
+         .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String sql = "Delete From notes";
+                try {
+                    db.execSQL(sql);
+                } catch (Exception e) {}
+                Toast.makeText(Notepad.this, "All notes have been deleted!", Toast.LENGTH_LONG).show();
+                fetchNotes("Select * from notes order by date desc");
+            }
+        }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        }).show();
+    }
+
+    private void setSearchEditTextListener() {
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -92,7 +134,7 @@ public class Notepad extends AppCompatActivity {
         });
     }
 
-    private void setListViewListeners() {
+    private void setListViewListener() {
         notesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -118,28 +160,7 @@ public class Notepad extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        fetchNotes();
-    }
-
-    private void fetchNotes() {
-        try {
-            Cursor c = db.rawQuery("Select * from notes", null);
-            countDisplay.setText(String.valueOf(c.getCount()));
-            notesList.clear();
-            filteredList.clear();
-            if(c.moveToFirst()) {
-                do {
-                    String ID = c.getString(0);
-                    String title = c.getString(1);
-                    String date = c.getString(2);
-                    String content = c.getString(3);
-                    notesList.add(new NoteData(ID, title, date, content));
-                } while(c.moveToNext());
-            }
-        } catch (Exception e) { }
-
-        NotesAdapter adapter = new NotesAdapter(this, 0, notesList);
-        notesListView.setAdapter(adapter);
+        fetchNotes("Select * from notes order by date desc");
     }
 
     @Override
@@ -151,33 +172,18 @@ public class Notepad extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.sortDate:
+                fetchNotes("Select * from notes order by date");
+                break;
+
+            case R.id.sortTitle:
+                fetchNotes("Select * from notes order by title");
+                break;
             case R.id.deleteAllNotes:
                 deleteAllNotes();
                 break;
         }
         return true;
-    }
-
-    private void deleteAllNotes() {
-        alert.setTitle("Delete")
-                .setMessage("Are you sure you want to delete all notes?")
-                .setCancelable(false)
-                .setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String sql = "Delete From notes";
-                        try {
-                            db.execSQL(sql);
-                        } catch (Exception e) {}
-                        Toast.makeText(Notepad.this, "All notes have been deleted!", Toast.LENGTH_LONG).show();
-                        fetchNotes();
-                    }
-                }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        }).show();
     }
 
     public void openEditNoteActivity(View view) {
